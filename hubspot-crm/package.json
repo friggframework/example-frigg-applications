@@ -1,0 +1,16 @@
+{
+    "name": "hubspot--example--frigg-app",
+    "version": "0.1.0",
+    "private": true,
+    "workspaces": [
+        "backend",
+        "frontend"
+    ],
+    "devDependencies": {
+        "concurrently": "^8.0.0"
+    },
+    "scripts": {
+        "start": "concurrently \"cd backend && npm run backend-start\" \"cd frontend && npm run frontend-start\"",
+        "test": "npm test -workspaces"
+    }
+}
