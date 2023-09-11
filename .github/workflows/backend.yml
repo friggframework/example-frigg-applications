@@ -1,0 +1,30 @@
+name: Backend
+
+on: [push]
+
+jobs:
+  install:
+    uses: lefthookhq/ci-workflow-steps/.github/workflows/ci-step.yml@main
+    with:
+      cache-key-prefix: hubspot-crm-backend
+      install-directory: ./
+      step: none
+      working-directory: hubspot-crm/backend
+
+  lint:
+    uses: lefthookhq/ci-workflow-steps/.github/workflows/ci-step.yml@main
+    needs: [install]
+    with:
+      cache-key-prefix: hubspot-crm-backend
+      install-directory: ./
+      step: lint
+      working-directory: hubspot-crm/backend
+
+  test:
+    uses: lefthookhq/ci-workflow-steps/.github/workflows/ci-step.yml@main
+    needs: [install]
+    with:
+      cache-key-prefix: hubspot-crm-backend
+      install-directory: ./
+      step: test
+      working-directory: hubspot-crm/backend
