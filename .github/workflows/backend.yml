@@ -7,7 +7,6 @@ jobs:
     uses: friggframework/ci-workflow-steps/.github/workflows/ci-step.yml@main
     with:
       cache-key-prefix: hubspot-crm-backend
-      install-directory: ./
       step: none
       working-directory: hubspot-crm/backend
 
@@ -16,7 +15,6 @@ jobs:
     needs: [install]
     with:
       cache-key-prefix: hubspot-crm-backend
-      install-directory: ./
       step: lint
       working-directory: hubspot-crm/backend
 
@@ -25,6 +23,5 @@ jobs:
     needs: [install]
     with:
       cache-key-prefix: hubspot-crm-backend
-      install-directory: ./
       step: test
       working-directory: hubspot-crm/backend
