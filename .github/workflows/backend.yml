@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   install:
-    uses: lefthookhq/ci-workflow-steps/.github/workflows/ci-step.yml@main
+    uses: friggframework/ci-workflow-steps/.github/workflows/ci-step.yml@main
     with:
       cache-key-prefix: hubspot-crm-backend
       install-directory: ./
@@ -12,7 +12,7 @@ jobs:
       working-directory: hubspot-crm/backend
 
   lint:
-    uses: lefthookhq/ci-workflow-steps/.github/workflows/ci-step.yml@main
+    uses: friggframework/ci-workflow-steps/.github/workflows/ci-step.yml@main
     needs: [install]
     with:
       cache-key-prefix: hubspot-crm-backend
@@ -21,7 +21,7 @@ jobs:
       working-directory: hubspot-crm/backend
 
   test:
-    uses: lefthookhq/ci-workflow-steps/.github/workflows/ci-step.yml@main
+    uses: friggframework/ci-workflow-steps/.github/workflows/ci-step.yml@main
     needs: [install]
     with:
       cache-key-prefix: hubspot-crm-backend
