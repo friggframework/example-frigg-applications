@@ -55,6 +55,13 @@ class ModalForm extends React.Component {
             initialFormData: {},
         };
         this.api = new API();
+
+        this.getFormTitle = this.getFormTitle.bind(this);
+        this.onOpenModal = this.onOpenModal.bind(this);
+        this.onCloseModal = this.onCloseModal.bind(this);
+        this.updateIntegration = this.updateIntegration.bind(this);
+        this.authorize = this.authorize.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
     }
 
     async componentDidUpdate(prevProps) {
@@ -105,7 +112,7 @@ class ModalForm extends React.Component {
         }
     }
 
-    getFormTitle = () => {
+    getFormTitle () {
         let title = '';
         switch (this.props.requestType) {
             case 'AUTHORIZE':
@@ -121,20 +128,20 @@ class ModalForm extends React.Component {
                 title = 'Not Supposed to See Me';
         }
         return title;
-    };
+    }
 
     // show the modal
-    onOpenModal = () => {
+    onOpenModal () {
         this.props.dispatch(showModalForm(true));
-    };
+    }
 
     // hide the modal
-    onCloseModal = () => {
+    onCloseModal () {
         this.props.dispatch(showModalForm(false, '', '', '', {}));
         this.setState(() => this.initialState);
-    };
+    }
 
-    updateIntegration = async (data) => {
+    async updateIntegration (data) {
         // handle actual form submission here
         this.api.setJwt(this.props.authToken);
         let res = null;
@@ -150,7 +157,7 @@ class ModalForm extends React.Component {
         return res;
     };
 
-    authorize = async (data) => {
+    async authorize (data) {
         // handle actual form submission here
         let res = null;
 
@@ -162,9 +169,9 @@ class ModalForm extends React.Component {
         }
 
         return res;
-    };
+    }
 
-    onSubmit = async (form) => {
+    async onSubmit (form) {
 
         this.setState(() => ({
             showSpinner: true,
@@ -259,7 +266,7 @@ class ModalForm extends React.Component {
         // or hack a timeout to demonstrate the modal
 
         // setTimeout( () => { this.onCloseModal() }, 2500); // spoof an api call
-    };
+    }
 
     render() {
         const { isShowing } = this.props;

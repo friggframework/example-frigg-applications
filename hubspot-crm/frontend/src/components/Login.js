@@ -42,6 +42,13 @@ export class Login extends Component {
 			defaultPassword: 'demo',
 			submitted: false,
 		};
+
+		this.passwordMatch = this.passwordMatch.bind(this);
+		this.handleInputChange = this.handleInputChange.bind(this);
+		this.login = this.login.bind(this);
+		this.handleFormSubmit = this.handleFormSubmit.bind(this);
+		this.handleDemoSubmit = this.handleDemoSubmit.bind(this);
+		this.createDemoUser = this.createDemoUser.bind(this);
 	}
 
 	componentDidMount() {
@@ -52,19 +59,21 @@ export class Login extends Component {
 		}
 	}
 
-	passwordMatch = (confirmation, state) => state.password === confirmation;
+	passwordMatch (confirmation, state) {
+		return state.password === confirmation;
+	}
 
 	// when form inputs change, this method handles validating them
-	handleInputChange = (event) => {
+	handleInputChange (event) {
 		event.preventDefault();
 
 		this.setState({
 			[event.target.name]: event.target.value,
 		});
-	};
+	}
 
 	// call the api to login with the credentials
-	login = async (username, password) => {
+	async login (username, password) {
 		// handle actual form submission here
 		if (!username || !password) {
 			return toast.error('Please fill in all the fields');
@@ -86,11 +95,11 @@ export class Login extends Component {
 		} catch (e) {
 			return toast.error('Login failed. Incorrect username or password');
 		}
-	};
+	}
 
 
 	// form submission method, ultimately unpacks form values and calls login method
-	handleFormSubmit = async (event) => {
+	async handleFormSubmit (event) {
 		event.preventDefault();
 
 		const values = serializeForm(event.target, { hash: true });
@@ -105,9 +114,9 @@ export class Login extends Component {
 
 		// attempt login
 		await this.login(values.username, values.password);
-	};
+	}
 
-	handleDemoSubmit = async (event) => {
+	async handleDemoSubmit (event) {
 		event.preventDefault();
 
 		const values = serializeForm(event.target, { hash: true });
@@ -117,8 +126,9 @@ export class Login extends Component {
 		this.state.submitted = true;
 
 		await this.login(this.state.defaultUsername, this.state.defaultPassword);
-	};
-	createDemoUser = async () => {
+	}
+
+	async createDemoUser () {
 		// handle actual form submission here
 
 		const api = new API();
@@ -134,7 +144,7 @@ export class Login extends Component {
 		} catch (e) {
 			return toast.error('Login failed. Incorrect username or password');
 		}
-	};
+	}
 
 	render() {
 		const validation = this.validator.validate(this.state);

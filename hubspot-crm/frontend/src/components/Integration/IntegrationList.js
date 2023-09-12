@@ -17,6 +17,10 @@ class IntegrationList extends Component {
 		this.state = {
 			installedIntegrations: [],
 		};
+
+		this.setInstalled = this.setInstalled.bind(this);
+		this.integrationComponent = this.integrationComponent.bind(this);
+		this.renderCombinedIntegrations = this.renderCombinedIntegrations.bind(this);
 	}
 
 	async refreshIntegrations(props) {
@@ -31,6 +35,7 @@ class IntegrationList extends Component {
 
 		await props.dispatch(setIntegrations(integrations));
 	}
+
 	async componentDidMount() {
 		const jwt = sessionStorage.getItem('jwt');
 		if (jwt !== this.props.authToken) {
@@ -42,15 +47,15 @@ class IntegrationList extends Component {
 		}
 	}
 
-	setInstalled = (data) => {
+	setInstalled (data) {
 		const items = [data, ...this.state.installedIntegrations];
 		console.log(data);
 		this.setState({ installedIntegrations: items });
-	};
+	}
 
 	// Temporary, refactor to higher order component pattern
 	// https://reactjs.org/docs/higher-order-components.html
-	integrationComponent = (integration) => {
+	integrationComponent (integration) {
 		if (config.componentLayout === 'default-horizontal') {
 			return (
 				<IntegrationHorizontal
@@ -71,9 +76,9 @@ class IntegrationList extends Component {
 				/>
 			);
 		}
-	};
+	}
 
-	renderCombinedIntegrations = (combinedIntegrations) => {
+	renderCombinedIntegrations (combinedIntegrations) {
 		if (this.props.integrationType == 'Recently added') {
 			return combinedIntegrations.map((integration) => this.integrationComponent(integration));
 		}
@@ -84,7 +89,7 @@ class IntegrationList extends Component {
 		return combinedIntegrations
 			.filter((integration) => integration.display.description == this.props.integrationType)
 			.map((integration) => this.integrationComponent(integration));
-	};
+	}
 
 	render() {
 		let integrationUtils = null;

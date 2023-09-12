@@ -42,21 +42,24 @@ class CreateUser extends Component {
 		};
 
 		this.submitted = false;
+		this.handleInputChange = this.handleInputChange.bind(this);
+		this.createUser = this.createUser.bind(this);
+		this.handleFormSubmit = this.handleFormSubmit.bind(this);
 	}
 
 	// passwordMatch = (confirmation, state) => (state.password === confirmation)
 
 	// when form inputs change, this method handles validating them
-	handleInputChange = (event) => {
+	handleInputChange (event) {
 		event.preventDefault();
 
 		this.setState({
 			[event.target.name]: event.target.value,
 		});
-	};
+	}
 
 	// call the api to login with the credentials
-	createUser = async (username, password, password2) => {
+	async createUser (username, password, password2) {
 		if (!username || !password || !password2) {
 			return toast.error('Please fill in all the fields');
 		}
@@ -74,10 +77,10 @@ class CreateUser extends Component {
 		} else {
 			return toast.error('Creating a user failed. (its possible this user already exists...)');
 		}
-	};
+	}
 
 	// form submission method, ultimately unpacks form values and calls login method
-	handleFormSubmit = async (event) => {
+	async handleFormSubmit (event) {
 		event.preventDefault();
 
 		const values = serializeForm(event.target, { hash: true });
@@ -91,7 +94,7 @@ class CreateUser extends Component {
 
 		// attempt login
 		await this.createUser(values.username, values.password, values.password2);
-	};
+	}
 
 	render() {
 		const validation = this.validator.validate(this.state);
